@@ -1,0 +1,38 @@
+[
+  {
+    "model": "books.book",
+    "pk": 1,
+    "fields": {
+      "name": "Война и мир",
+      "author": "Ф.Д. Достоевский",
+      "pub_date": "2018-02-27"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 2,
+    "fields": {
+      "name": "1984",
+      "author": "Джордж Оруэл",
+      "pub_date": "2016-12-06"
+    }
+  },
+   {
+    "model": "books.book",
+    "pk": 3,
+    "fields": {
+      "name": "Джедайские техники",
+      "author": "Максим Дорофеев",
+      "pub_date": "2018-10-12"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 4,
+    "fields": {
+      "name": "48 законов власти",
+      "author": "Роберт Грин",
+      "pub_date": "2018-01-24"
+    }
+  }
+]

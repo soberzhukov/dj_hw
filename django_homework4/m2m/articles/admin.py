@@ -4,32 +4,35 @@ from django.forms import BaseInlineFormSet
 from .models import Article, Scope, Tag
 
 
-class RelationshipInlineFormset(BaseInlineFormSet):
+class ScopeInlineFormset(BaseInlineFormSet):
+
     def clean(self):
-        is_main = False
+        counter_dict = dict()
         for form in self.forms:
 
             if form.cleaned_data.get('is_main'):
-                if is_main:
-                    raise ValidationError('Основным может быть только один отдел')
-                else:
-                    is_main = True
+                counter_dict['true'] = counter_dict.get('true', 0) + 1
 
-        if not is_main:
+        if counter_dict.get('true') is None:
             raise ValidationError('Укажите основной отдел')
 
-        return super().clean()  # вызываем базовый код переопределяемого метода
+        if counter_dict.get('true') > 1:
+            raise ValidationError('Основным может быть только один отдел')
+
+        return super().clean()
 
 
-class RelationshipInline(admin.TabularInline):
+class ScopeInline(admin.TabularInline):
     model = Scope
-    formset = RelationshipInlineFormset
+    formset = ScopeInlineFormset
 
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    inlines = [RelationshipInline]
+    inlines = [ScopeInline]
+    extra = 0
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    inlines = [RelationshipInline]
+    inlines = [ScopeInline]
+    extra = 0
